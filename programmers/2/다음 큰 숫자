@@ -1,0 +1,32 @@
+class Solution {
+    public int binary(int n) {
+        int count = 0;
+        String str = Integer.toBinaryString(n);
+        char[] ch = str.toCharArray();
+        
+        for(char i : ch) {
+            if (i == '1') {
+                count ++;
+            }
+        }
+        return count;
+    }
+    
+    
+    public int solution(int n) {
+        int answer = 0;
+        int ori = 0, next = 0, index = 1;
+        
+        while(true) {
+            ori = binary(n);
+            next = binary(n+index);
+            
+            if(ori == next) {
+                answer = n+index;
+                break;
+            }
+            index++;
+        }
+        return answer;
+    }
+}
