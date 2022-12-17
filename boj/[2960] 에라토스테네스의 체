@@ -9,7 +9,7 @@ public class Main {
 		
 		int n = Integer.parseInt(st.nextToken());
 		int k = Integer.parseInt(st.nextToken());
-		boolean[] primeNum = new boolean[N+1];
+		boolean[] primeNum = new boolean[n+1];
 		
 		int count = 0;
 		
