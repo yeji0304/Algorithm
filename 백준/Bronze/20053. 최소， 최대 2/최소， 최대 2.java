@@ -8,23 +8,23 @@ public class Main {
 		StringBuilder sb = new StringBuilder();
 		
 		int T = Integer.parseInt(br.readLine());
-		
+		int num;
 		
 		while(T != 0) {
 			
 			int N = Integer.parseInt(br.readLine());
-			int[] num = new int[N];
-			int max = 0, min = 0;
+			int max = Integer.MIN_VALUE;
+			int min = Integer.MAX_VALUE;
 			
 			StringTokenizer st = new StringTokenizer(br.readLine());
 			for(int i=0; i<N; i++) {
-				num[i] = Integer.parseInt(st.nextToken());
+				num = Integer.parseInt(st.nextToken());
+				
+				if(num > max) 
+					max = num;
+				if(num < min)
+					min = num;
 			}
-			
-			Arrays.sort(num);
-			
-			min = num[0];
-			max = num[N-1];
 			
 			System.out.println(min + " " + max);
 			T--;
