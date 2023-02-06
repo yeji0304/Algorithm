@@ -26,21 +26,18 @@ public class Main {
 			
 			if(n1 == 1) {
 				light[n2] = n3;
-			} else if (n1 == 2) {
-				for(int j=n2; j<=n3; j++) {
-					if(light[j] == 1)
-						light[j] = 0;
-					else
-						light[j] = 1;
-				}
-				
-			} else if (n1 == 3) {
-				for(int j=n2; j<=n3; j++) {
-					light[j] = 0;
-				}
 			} else {
 				for(int j=n2; j<=n3; j++) {
-					light[j] = 1;
+					if(n1 == 2) {
+						if(light[j] == 0)
+							light[j] = 1;
+						else
+							light[j] = 0;
+					} else if (n1 == 3) {
+						light[j] = 0;
+					} else {
+						light[j] = 1;
+					}
 				}
 			}
 		}
