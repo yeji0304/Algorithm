@@ -5,7 +5,6 @@ public class Main {
 
 	public static void main(String[] args) throws IOException {
 		BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
-		Queue<Integer> q = new LinkedList<Integer>();
 		
 		int N = Integer.parseInt(br.readLine());
 		int[] asset = new int[14];
@@ -13,69 +12,66 @@ public class Main {
 		StringTokenizer st = new StringTokenizer(br.readLine());
 		for(int i=0; i<14; i++) {
 			asset[i] = Integer.parseInt(st.nextToken());
-            q.add(asset[i]);
 		}
 		
-		int bnp = 0, bnp_n = N, bnp_cnt = 0;
-		int j = 1, cnt_up = 0, cnt_down = 0, cnt = 0, timing = 0, timing_n = N;
+		int a = BNP(asset, N);
+		int b = TIMING(asset, N);
 
-		q.add(asset[0]);
-		while(true) {
-			
-			int top = q.peek();
-			int bnp_num = q.peek();
-			q.poll();
-			
-			if(bnp_num <= N) {
-				bnp_cnt++;
-				if(bnp_cnt == 1) {
-					bnp += bnp_n/bnp_num;
-					bnp_n %= bnp_num;
-				}
-			}
-			
-			if(top < asset[j]) {
-				cnt_up++;
-				cnt_down = 0;
-				
-				if(cnt_up == 3 && timing > 0) {
-					timing *= asset[j];
-					timing += timing_n;
-					cnt++;
-				} 
-				
-			} else if (top > asset[j]) {
-				cnt_down++;
-				cnt_up = 0;
-				
-				if(cnt_down >= 3) {
-					timing += timing_n/asset[j];
-					timing_n %= asset[j];
-				}
-			}
-			
-			j++;
-			
-			if(j == 13) {
-				if(cnt == 0) {
-					timing *= asset[j];
-					timing += timing_n;
-				}
-				bnp *= asset[j];
-				bnp += bnp_n;
-                
-                q.clear();
-				break;
-			}
-		}
-
-		if(bnp < timing) {
+		if(a<b) {
 			System.out.println("TIMING");
-			return;
-		} else if(bnp == timing) {
+		} else if(a==b) {
 			System.out.println("SAMESAME");
-			return;
+		} else {
+			System.out.println("BNP");
 		}
-		System.out.println("BNP");
+	}
+	
+	static int BNP(int[] arr, int num) {
+		
+		int count = 0;
+		int total = num;
+		
+		for(int i=0; i<14; i++) {
+			
+			if(arr[i] <= total) {
+				count += total/arr[i];	
+				total %= arr[i];
+			}
+		}
+		count = count * arr[13] + total;
+		return count;
+	}
+	
+	static int TIMING(int[] arr, int num) {
+		
+		int count = 0, down = 0, up = 0, cnt = 0;
+		int total = num;
+		
+		for(int i=1; i<arr.length; i++) {
+			int temp = arr[i-1];
+			int now = arr[i];
+			
+			if(temp < now) {
+				up++;
+				down = 0;
+			} else if(temp > now) {
+				down++;
+				up = 0;
+			} 
+			
+			if(up == 3 && count > 0) {
+				count = count*now+total; 
+				cnt++;
+			} else if(down >= 3 && now <= total ) {
+					count += total/now;
+					total %= now;
+			}
+			
+			if (i == 13) {
+				if(cnt == 0) 
+					count = count*arr[13]+total;
+			}	
+		}
+		return count;
 	}
 }
