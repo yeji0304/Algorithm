@@ -1,0 +1,25 @@
+import java.util.*;
+import java.io.*;
+
+public class Main {
+	
+	public static void main(String[] args) throws IOException {
+		BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
+		StringBuilder sb = new StringBuilder();
+		StringTokenizer st = new StringTokenizer(br.readLine());
+		
+		String N = st.nextToken();
+		int B = Integer.parseInt(st.nextToken());
+		
+		int sum = 0;
+		for(int i=0; i<N.length(); i++) {
+			
+			if('0' <= N.charAt(i) && N.charAt(i) <= '9') {
+				sum = sum*B + ((int)N.charAt(i) - (int)'0');
+			} else {
+				sum = sum*B + ((int)N.charAt(i) - (int)'A' + 10);
+			}
+		}
+		System.out.println(sum);
+	}
+}
