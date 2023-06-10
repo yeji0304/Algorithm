@@ -11,7 +11,7 @@ int main() {
 	cin >> N >> M;
 
 	int seat;
-	vector<int> train(N + 1, 0);
+	vector<int> train(N + 1);
 
 	for (int i = 0; i < M; i++) {
 		int order, trainNum;
